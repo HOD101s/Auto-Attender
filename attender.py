@@ -1,5 +1,7 @@
-from selenium import webdriver
 import os
+import time
+from selenium import webdriver
+
 
 
 class Attender:
@@ -7,6 +9,15 @@ class Attender:
         options = webdriver.ChromeOptions() 
         options.add_argument("user-data-dir=D:\\ChromeProfiles\\sfit")
         options.binary_location = r"D:\ProgramFiles\Google\Chrome\Application\chrome.exe"
+        options.add_experimental_option(
+            "prefs",
+            {
+                "profile.default_content_setting_values.media_stream_mic": 1,
+                "profile.default_content_setting_values.media_stream_camera": 1,
+                "profile.default_content_setting_values.geolocation": 1,
+                "profile.default_content_setting_values.notifications": 1
+            }
+        )
         self.driver = webdriver.Chrome(executable_path=os.environ['CHROME_WEB_DRIVER'],options=options)
         self.driver.get("https://meet.google.com")
 
@@ -20,6 +31,18 @@ class Attender:
         # Click Continue
         self.driver.find_element_by_xpath('//*[@id="yDmH0d"]/div[3]/div/div[2]/span/div/div[4]/div[2]/div/span').click()
 
+        time.sleep(5)
+
+        # Camera OFF
+        if camera_off:
+            print("Click")
+            self.driver.find_element_by_xpath('//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/div[3]/div[2]/div/div').click()
+        # Mic OFF
+        if mic_off:
+            self.driver.find_element_by_xpath('//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/div[3]/div[1]/div/div/div').click()
+        
+        # Click Join Meet
+        self.driver.find_element_by_xpath('//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div[1]/div[1]/span').click()
 
     def kill(self):
         self.driver.quit()
