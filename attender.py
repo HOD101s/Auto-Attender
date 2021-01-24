@@ -1,13 +1,16 @@
 import os
 import time
+from dotenv import load_dotenv
 from selenium import webdriver
+
+load_dotenv()
 
 
 class Attender:
     def __init__(self):
         options = webdriver.ChromeOptions() 
-        options.add_argument("user-data-dir=D:\\ChromeProfiles\\sfit")
-        options.binary_location = r"D:\ProgramFiles\Google\Chrome\Application\chrome.exe"
+        options.add_argument(f'user-data-dir={os.environ["CHROME_PROFILE"]}')
+        options.binary_location = os.environ['CHROME_BINARY']
         options.add_experimental_option(
             "prefs",
             {

@@ -4,4 +4,5 @@ import time
 
 attend = Attender()
 time.sleep(5)
-attend.join_meet('scu-fjxf-vsw')
+attend.join_meet('')
+
