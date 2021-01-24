@@ -3,7 +3,6 @@ import time
 from selenium import webdriver
 
 
-
 class Attender:
     def __init__(self):
         options = webdriver.ChromeOptions() 
@@ -20,6 +19,7 @@ class Attender:
         )
         self.driver = webdriver.Chrome(executable_path=os.environ['CHROME_WEB_DRIVER'],options=options)
         self.driver.get("https://meet.google.com")
+
 
     def join_meet(self,meetcode,camera_off=True,mic_off=True):
         # Click Enter Meeting Code
@@ -43,6 +43,7 @@ class Attender:
         
         # Click Join Meet
         self.driver.find_element_by_xpath('//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div[1]/div[1]/span').click()
+
 
     def kill(self):
         self.driver.quit()
