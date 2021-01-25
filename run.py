@@ -8,6 +8,9 @@ import threading
 # Flag: Current Lecture Session Status
 # Import TT from CSV
 
+# In seconds
+launch_interval = 300
+
 with open('timetable.pickle','rb') as f:
     timetable = pickle.load(f)
 
@@ -25,7 +28,7 @@ for lecture in timetable[currentDay]:
 
 def attendLecture():
     # You can access "attend" variable in this function
-    threading.Timer(300, attendLecture).start()
+    threading.Timer(launch_interval, attendLecture).start()
     if attend.currentLecture == None:
         attend.join_meet('BECMPNA')
 
