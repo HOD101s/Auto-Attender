@@ -12,6 +12,7 @@ load_dotenv()
 
 class Attender:
     def __init__(self):
+        self.currentLecture = None
         options = webdriver.ChromeOptions() 
         options.add_argument(f'user-data-dir={os.environ["CHROME_PROFILE"]}')
         options.binary_location = os.environ['CHROME_BINARY']
@@ -55,6 +56,7 @@ class Attender:
             self.driver.find_element_by_xpath('//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div[1]/div[1]/span').click()
 
             # set flag
+            self.currentLecture = meetcode
 
         except TimeoutException:
                 print("Page took too long to load")
