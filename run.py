@@ -2,12 +2,14 @@ import datetime
 import pickle
 from utils.lecture import Lecture
 from utils.attender import Attender
+import threading
 
 
 # Get Lecture Details
 # Flag: Current Lecture Session Status
 # Import TT from CSV
 
+currentLecture = None
 
 with open('timetable.pickle','rb') as f:
     timetable = pickle.load(f)
@@ -26,7 +28,10 @@ for lecture in timetable[currentDay]:
 
 
 def launch():
+    threading.Timer(300, launch).start()
+    if not currentLecture:
+        global attend
     attend = Attender()
-    attend.join_meet('BECMPNA')
+launch()
 
 # launch()
