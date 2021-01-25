@@ -25,7 +25,7 @@ for lecture in timetable[currentDay]:
 
 def attendLecture():
     # You can access "attend" variable in this function
-    threading.Timer(60, attendLecture).start()
+    threading.Timer(300, attendLecture).start()
     if attend.currentLecture == None:
         attend.join_meet('BECMPNA')
 
