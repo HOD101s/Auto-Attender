@@ -1,4 +1,4 @@
-import time
+import datetime
 import pickle
 from utils.lecture import Lecture
 from utils.attender import Attender
@@ -10,7 +10,13 @@ from utils.attender import Attender
 
 with open('timetable.pickle','rb') as f:
     timetable = pickle.load(f)
-print(timetable)
+
+
+# Get current time params
+nowTime = datetime.datetime.now()
+currentDay = nowTime.strftime('%a')
+currentTime = nowTime.strftime('%H:%M')
+
 
 def launch():
     attend = Attender()

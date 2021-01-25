@@ -21,6 +21,6 @@ for day,sessions in ttdict.items():
             subject = ''
         timetable[day].append(Lecture(start_time=start, end_time=end, subject=subject, meetcode=meetcode))
     
- 
+
 with open("timetable.pickle","wb") as f:
     pickle.dump(timetable,f)
