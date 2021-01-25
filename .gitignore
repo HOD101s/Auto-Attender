@@ -1,8 +1,15 @@
 __pycache__
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
+temp
 .vscode
 *.ipynb
 .env
 *.pickle
 timetable.csv
+
+# Environments
+env/
+
+# IDE Settings
+.vscode/
