@@ -34,7 +34,7 @@ def attendLecture():
 
 def launch():
     global attend
-    attend = Attender()
+    attend = Attender(blockMicCam=False)
     attendLecture()
 
 launch()
