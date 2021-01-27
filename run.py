@@ -8,8 +8,8 @@ import threading
 
 
 parser = argparse.ArgumentParser(description='Auto Attender System')
-parser.add_argument('-build-tt', '--build_timetable',
-                    default=False, type=bool, help='run timetable builder')
+parser.add_argument('-build-sc', '--build_schedule',
+                    default=True, type=bool, help='run schedule builder')
 args = parser.parse_args()
 
 
@@ -17,13 +17,13 @@ args = parser.parse_args()
 launch_interval = 60
 
 # build timetable into timetable.pickle
-if args.build_timetable:
+if args.build_schedule:
     # print('Building Timetable')
     timetable_builder.buildtimetable()
     # print('Timetable Built')
 
 # print("Fetching Timetable")
-with open('timetable.pickle', 'rb') as f:
+with open('schedule.pickle', 'rb') as f:
     timetable = pickle.load(f)
 
 
