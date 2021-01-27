@@ -1,5 +1,6 @@
 import os
 import time
+import argparse
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
@@ -44,7 +45,8 @@ class Attender:
             WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
                 (By.XPATH, "//*[contains(text(), 'Use a meeting code')]")))
             # Click Enter Meeting Code
-            self.driver.find_element_by_xpath("//*[contains(text(), 'Use a meeting code')]").click()
+            self.driver.find_element_by_xpath(
+                "//*[contains(text(), 'Use a meeting code')]").click()
             # Wait till input appears
             WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(
                 (By.XPATH, '//*[@id="yDmH0d"]/div[3]/div/div[2]/span/div/div[2]/div[1]/div[1]/input')))
@@ -54,7 +56,8 @@ class Attender:
             meetcodefield.click()
             meetcodefield.send_keys(meetcode)
             # Click Continue
-            self.driver.find_element_by_xpath("//*[contains(text(), 'Continue')]").click()
+            self.driver.find_element_by_xpath(
+                "//*[contains(text(), 'Continue')]").click()
 
             if self.block_mic_cam:
                 WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
@@ -90,3 +93,12 @@ class Attender:
 
     def kill(self):
         self.driver.quit()
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Auto Attender System')
+    parser.add_argument('-c', '--meetcode',
+                        type=str, help='meetcode to join', required=True)
+    args = parser.parse_args()
+    attend = Attender(block_mic_cam=False, mute_audio=False)
+    attend.join_meet(args.meetcode)
