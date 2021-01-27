@@ -2,7 +2,7 @@
 
 ## Description
 
-Python Script to schedule logging into Google Meets as per schedule. Can be used to automate logging into daily meetings or school sessions. Initially built to automate logging into the author's Google Meet college sessions, our Auto Attender can be used by professionals looking to save time on continuously quitting and logging into several meets simply by maintaining a csv schedule.
+Python Automation Script to schedule logging into Google Meets as per schedule. Can be used to automate logging into daily meetings or school sessions. Initially built to automate logging into the author's Google Meet college sessions, now our Auto Attender can be used by professionals looking to save time on continuously quitting and logging into several meets simply by maintaining a csv schedule.
 
 ## Setting Up
 
