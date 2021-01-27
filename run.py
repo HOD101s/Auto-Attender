@@ -18,11 +18,11 @@ launch_interval = 60
 
 # build timetable into timetable.pickle
 if args.build_timetable:
-    print('Building Timetable')
+    # print('Building Timetable')
     timetable_builder.buildtimetable()
-    print('Timetable Built')
+    # print('Timetable Built')
 
-print("Fetching Timetable")
+# print("Fetching Timetable")
 with open('timetable.pickle', 'rb') as f:
     timetable = pickle.load(f)
 
