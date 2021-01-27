@@ -1,16 +1,27 @@
 import datetime
 import pickle
+import argparse
 from utils.lecture import Lecture
 from utils.attender import Attender
+import timetable_builder 
 import threading
 
-# Get Lecture Details
-# Flag: Current Lecture Session Status
-# Import TT from CSV
+
+parser = argparse.ArgumentParser(description='Auto Attender System')
+parser.add_argument('-build-tt','--build_timetable', default=False, type=bool, help='run timetable builder')
+args = parser.parse_args()
+
 
 # In seconds
-launch_interval = 300
+launch_interval = 60
 
+# build timetable into timetable.pickle
+if args.build_timetable:
+    print('Building Timetable')
+    timetable_builder.buildtimetable()
+    print('Timetable Built')
+
+print("Fetching Timetable")
 with open('timetable.pickle','rb') as f:
     timetable = pickle.load(f)
 
@@ -65,4 +76,3 @@ def launch():
     attendLecture()
 
 launch()
-
