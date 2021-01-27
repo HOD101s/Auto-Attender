@@ -6,7 +6,7 @@ temp
 *.ipynb
 .env
 *.pickle
-timetable.csv
+schedule.csv
 
 # Environments
 env/
