@@ -92,6 +92,10 @@ class Attender:
 
         except TimeoutException:
             print("Page took too long to load")
+            if __name__ == "__main__":
+                print('Trying to log in again')
+                self.join_meet(meetcode, camera_off=camera_off,
+                               mic_off=mic_off)
 
     def kill(self):
         self.driver.quit()
