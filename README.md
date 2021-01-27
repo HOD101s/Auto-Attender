@@ -59,3 +59,26 @@ To instantly log into meets you can run:
 ```python
 python utils\attender.py -c MEET_CODE
 ```
+
+## Windows Batch scripts
+
+1. attendsession
+   Used to begin attending meets according to schedule. Can be run from cmd shell or Run (Win + R) if set on path.
+   
+   ```bash
+   USAGE:
+   >attendsession
+   ```
+   
+   
+   
+2. joinmeet
+
+   Used to instantly join meet with specified meetcode
+
+   ```bash
+   USAGE:
+   >joinmeet MEETCODE
+   ```
+
+   
