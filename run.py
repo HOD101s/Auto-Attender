@@ -3,12 +3,13 @@ import pickle
 import argparse
 from utils.lecture import Lecture
 from utils.attender import Attender
-import timetable_builder 
+import timetable_builder
 import threading
 
 
 parser = argparse.ArgumentParser(description='Auto Attender System')
-parser.add_argument('-build-tt','--build_timetable', default=False, type=bool, help='run timetable builder')
+parser.add_argument('-build-tt', '--build_timetable',
+                    default=False, type=bool, help='run timetable builder')
 args = parser.parse_args()
 
 
@@ -22,7 +23,7 @@ if args.build_timetable:
     print('Timetable Built')
 
 print("Fetching Timetable")
-with open('timetable.pickle','rb') as f:
+with open('timetable.pickle', 'rb') as f:
     timetable = pickle.load(f)
 
 
@@ -31,10 +32,10 @@ def getCurrentMeetCode():
     # Get current time params
     nowTime = datetime.datetime.now()
     currentDay = nowTime.strftime('%a')
-    currentTime = nowTime.time().replace(microsecond=0,second=0)
+    currentTime = nowTime.time().replace(microsecond=0, second=0)
     # get current lecture
     for lecture in timetable[currentDay]:
-        if lecture.start_time <= currentTime  < lecture.end_time:
+        if lecture.start_time <= currentTime < lecture.end_time:
             return lecture.meetcode
     return None
 
@@ -74,5 +75,6 @@ def launch():
     lastLectureEndTime = getLastLectureEndTime()
     attend = Attender(block_mic_cam=False, mute_audio=False)
     attendLecture()
+
 
 launch()
