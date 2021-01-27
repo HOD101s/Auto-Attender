@@ -51,3 +51,11 @@ python run.py
 ```
 
 This will run the main script which will keep checking if there is a meeting to attend. If yes it will join the meet else it will take you to a temporary page (in our case https://www.google.com) and will wait there till you have a meeting to attend. After the final meeting of the day the bot browser will close automatically.
+
+## Quickly attending Meetings
+
+To instantly log into meets you can run:
+
+```python
+python utils\attender.py -c MEET_CODE
+```
