@@ -33,8 +33,7 @@ def attendLecture():
         attend.join_meet('BECMPNA')
 
 def launch():
-    global attend
-    attend = Attender(blockMicCam=False)
+    attend = Attender(block_mic_cam=False, mute_audio=False)
     attendLecture()
 
 launch()

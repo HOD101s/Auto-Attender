@@ -11,14 +11,16 @@ load_dotenv()
 
 
 class Attender:
-    def __init__(self,blockMicCam=False):
+    def __init__(self,block_mic_cam=False, mute_audio=False):
         self.currentLecture = None
-        self.blockedMicCam = blockMicCam
+        self.block_mic_cam = block_mic_cam
         options = webdriver.ChromeOptions() 
         options.add_argument(f'user-data-dir={os.environ["CHROME_PROFILE"]}')
+        if mute_audio:
+            options.add_argument("--mute-audio")
         options.binary_location = os.environ['CHROME_BINARY']
 
-        if blockMicCam:
+        if block_mic_cam:
             exptoption = 2
         else:
             exptoption = 1
@@ -51,7 +53,7 @@ class Attender:
             # Click Continue
             self.driver.find_element_by_xpath('//*[@id="yDmH0d"]/div[3]/div/div[2]/span/div/div[4]/div[2]/div/span').click()
 
-            if self.blockedMicCam:
+            if self.block_mic_cam:
                 WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="yDmH0d"]/div[3]/div/div[2]/div[3]/div/span')))
                 # Click Dismis blocked mic and cam
                 self.driver.find_element_by_xpath('//*[@id="yDmH0d"]/div[3]/div/div[2]/div[3]/div/span').click()
@@ -75,7 +77,6 @@ class Attender:
 
         except TimeoutException:
                 print("Page took too long to load")
-                # unset flag
 
     def kill(self):
         self.driver.quit()
