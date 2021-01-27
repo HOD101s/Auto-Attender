@@ -7,12 +7,14 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
 load_dotenv()
 
 
 class Attender:
     def __init__(self, block_mic_cam=False, mute_audio=False):
+        print(f'NAME: {__name__}')
         self.currentLecture = None
         self.block_mic_cam = block_mic_cam
         options = webdriver.ChromeOptions()
@@ -49,14 +51,19 @@ class Attender:
             # Click Enter Meeting Code
             self.driver.find_element_by_xpath(
                 "//*[contains(text(), 'Use a meeting code')]").click()
+
             # Wait till input appears
             WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(
-                (By.XPATH, '//*[@id="yDmH0d"]/div[3]/div/div[2]/span/div/div[2]/div[1]/div[1]/input')))
+                (By.XPATH, "//*[contains(text(), 'Continue')]")))
             # Enter MeetCode
             meetcodefield = self.driver.find_element_by_xpath(
                 '//*[@id="yDmH0d"]/div[3]/div/div[2]/span/div/div[2]/div[1]/div[1]/input')
             meetcodefield.click()
             meetcodefield.send_keys(meetcode)
+
+            # # Hit Enter on MeetCode
+            # meetcodefield.send_keys(Keys.ENTER)
+
             # Click Continue
             self.driver.find_element_by_xpath(
                 "//*[contains(text(), 'Continue')]").click()
@@ -90,21 +97,8 @@ class Attender:
             # set flag
             self.currentLecture = meetcode
 
-        except TimeoutException:
-            print("Page took too long to load")
-            if __name__ == "__main__":
-                print('Trying to log in again')
-                self.join_meet(meetcode, camera_off=camera_off,
-                               mic_off=mic_off)
+        except Exception as e:
+            print(e)
 
     def kill(self):
         self.driver.quit()
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Auto Attender System')
-    parser.add_argument('-c', '--meetcode',
-                        type=str, help='meetcode to join', required=True)
-    args = parser.parse_args()
-    attend = Attender(block_mic_cam=False, mute_audio=False)
-    attend.join_meet(args.meetcode)
