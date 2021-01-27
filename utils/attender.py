@@ -14,7 +14,6 @@ load_dotenv()
 
 class Attender:
     def __init__(self, block_mic_cam=False, mute_audio=False):
-        print(f'NAME: {__name__}')
         self.currentLecture = None
         self.block_mic_cam = block_mic_cam
         options = webdriver.ChromeOptions()
