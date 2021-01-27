@@ -62,16 +62,17 @@ python utils\attender.py -c MEET_CODE
 
 ## Windows Batch scripts
 
+Can be run from cmd prompt or Run (Win + R) if set on path.
+
 1. attendsession
-   Used to begin attending meets according to schedule. Can be run from cmd shell or Run (Win + R) if set on path.
-   
+
+   Used to begin attending meets according to schedule.
+
    ```bash
    USAGE:
    >attendsession
    ```
-   
-   
-   
+
 2. joinmeet
 
    Used to instantly join meet with specified meetcode
@@ -80,5 +81,3 @@ python utils\attender.py -c MEET_CODE
    USAGE:
    >joinmeet MEETCODE
    ```
-
-   
