@@ -42,10 +42,9 @@ class Attender:
         try:
             # Wait till button loads
             WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
-                (By.XPATH, '//*[@id="yDmH0d"]/c-wiz/div/div/div/div[2]/div[2]/div[2]/div/c-wiz/div[1]/div/div/div[1]/div')))
+                (By.XPATH, "//*[contains(text(), 'Use a meeting code')]")))
             # Click Enter Meeting Code
-            self.driver.find_element_by_xpath(
-                '//*[@id="yDmH0d"]/c-wiz/div/div/div/div[2]/div[2]/div[2]/div/c-wiz/div[1]/div/div/div[1]/div').click()
+            self.driver.find_element_by_xpath("//*[contains(text(), 'Use a meeting code')]").click()
             # Wait till input appears
             WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(
                 (By.XPATH, '//*[@id="yDmH0d"]/div[3]/div/div[2]/span/div/div[2]/div[1]/div[1]/input')))
@@ -55,8 +54,7 @@ class Attender:
             meetcodefield.click()
             meetcodefield.send_keys(meetcode)
             # Click Continue
-            self.driver.find_element_by_xpath(
-                '//*[@id="yDmH0d"]/div[3]/div/div[2]/span/div/div[4]/div[2]/div/span').click()
+            self.driver.find_element_by_xpath("//*[contains(text(), 'Continue')]").click()
 
             if self.block_mic_cam:
                 WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(
