@@ -19,7 +19,9 @@ class Attender:
         options.add_argument(f'user-data-dir={os.environ["CHROME_PROFILE"]}')
         if mute_audio:
             options.add_argument("--mute-audio")
-        options.binary_location = os.environ['CHROME_BINARY']
+
+        if os.environ['CHROME_BINARY']:
+            options.binary_location = os.environ['CHROME_BINARY']
 
         if block_mic_cam:
             exptoption = 2
