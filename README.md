@@ -22,9 +22,12 @@ python setupenv.py
 
 - Incase you cannot find path to your chrome binary (chrome.exe) try running without setting it. In some cases system automatically gets chrome.exe location.
 
+- Next add path to your Chrome Web Driver you previously downloaded. Finally your .env file should look like this.
+
   ```bash
   CHROME_PROFILE=Path\to\chrome\user\profile
   CHROME_BINARY=Path\to\chrome.exe
+  CHROME_WEB_DRIVER=Path\to\chromedriver
   ```
 
 You may find your chrome.exe under : `C:\Program Files (x86)\Google\Chrome\Application\`
