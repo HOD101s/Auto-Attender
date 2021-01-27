@@ -6,6 +6,10 @@ Python Script to schedule logging into Google Meets as per schedule. Can be used
 
 ## Setting Up
 
+### Web Driver
+
+Script is built to run on Chrome browser. You must download the chrome web driver from [here](https://sites.google.com/a/chromium.org/chromedriver/downloads). Choose the version based on your chrome version in chrome at chrome://settings/help. Remember the location where you store the unzipped web driver executable.
+
 #### Environment Setup
 
 ```python
@@ -14,14 +18,16 @@ python setupenv.py
 
 - Enter the directory to store your google profile information. All Information is stored locally so do not share the details within this directory with anybody.
 
-- Next edit the .env and add the path to your chrome.exe file. Finally your .env file should look like this.
+- Next edit the .env and add the path to your chrome.exe file.
+
+- Incase you cannot find path to your chrome binary (chrome.exe) try running without setting it. In some cases system automatically gets chrome.exe location.
 
   ```bash
   CHROME_PROFILE=Path\to\chrome\user\profile
   CHROME_BINARY=Path\to\chrome.exe
   ```
 
-You may find your chrome.exe under : ```C:\Program Files (x86)\Google\Chrome\Application\```
+You may find your chrome.exe under : `C:\Program Files (x86)\Google\Chrome\Application\`
 
 #### Profile Setup
 
@@ -29,7 +35,7 @@ You may find your chrome.exe under : ```C:\Program Files (x86)\Google\Chrome\App
 python setupprofile.py
 ```
 
-- Used to setup the chrome profile used to log into sessions. Run above command and in the chrome window that opens, sign in using the google id used to join your meetings. 
+- Used to setup the chrome profile used to log into sessions. Run above command and in the chrome window that opens, sign in using the google id used to join your meetings.
 
 #### Building the Schedule
 
