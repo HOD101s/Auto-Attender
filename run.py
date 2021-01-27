@@ -61,8 +61,8 @@ def attendLecture():
             attend.join_meet(currentMeet)
         # if college hasnt ended for the day
         elif datetime.datetime.now().time() < lastLectureEndTime:
-            if attend.driver.current_url != 'https://www.google.com':
-                attend.driver.get('https://www.google.com')
+            if attend.driver.current_url != 'https://www.google.com/':
+                attend.driver.get('https://www.google.com/')
             attend.currentLecture = None
             attend.driver.minimize_window()
         # college lectures ended for the day
