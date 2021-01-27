@@ -14,7 +14,7 @@ args = parser.parse_args()
 
 
 # In seconds
-launch_interval = 60
+launch_interval = 20
 
 # build timetable into timetable.pickle
 if args.build_schedule:
