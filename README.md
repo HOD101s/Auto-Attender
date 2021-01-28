@@ -12,7 +12,7 @@ Script is built to run on Chrome browser. You must download the chrome web drive
 
 #### Environment Setup
 
-```python
+```bash
 python setupenv.py
 ```
 
@@ -34,7 +34,7 @@ You may find your chrome.exe under : `C:\Program Files (x86)\Google\Chrome\Appli
 
 #### Profile Setup
 
-```python
+```bash
 python setupprofile.py
 ```
 
@@ -46,18 +46,33 @@ Follow our schedule.example.csv. Add details as specified and finally save the f
 
 ## Running the script
 
-```python
+```bash
 python run.py
 ```
 
 This will run the main script which will keep checking if there is a meeting to attend. If yes it will join the meet else it will take you to a temporary page (in our case https://www.google.com) and will wait there till you have a meeting to attend. After the final meeting of the day the bot browser will close automatically.
 
+### run.py Command Line Arguments
+
+```bash
+optional arguments:
+  -h, --help            show this help message and exit
+  -l LAUNCH_INTERVAL, --launch-interval LAUNCH_INTERVAL
+                        Interval to keep checking for current available session
+  -sc [BUILD_SCHEDULE], --build_schedule [BUILD_SCHEDULE]
+                        Re-builds schedule before attending sessions
+  -mic [BLOCK_MIC_CAMERA], --block_mic_camera [BLOCK_MIC_CAMERA]
+                        Block Chrome access to Mic and Camera. If set user cannot manually give access to camera or mic
+  -mute [MUTE_CHROME_AUDIO], --mute_chrome_audio [MUTE_CHROME_AUDIO]
+                        Mutes all audio from the Chrome window. If set user cannot manually un-mute
+```
+
 ## Quickly Attending Meetings
 
 To instantly log into meets you can run:
 
-```python
-python utils\attender.py -c MEET_CODE
+```bash
+python joinmeet.py -m MEET_CODE
 ```
 
 ## Windows Batch scripts
@@ -68,16 +83,18 @@ Can be run from cmd prompt or Run (Win + R) if set on path.
 
    Used to begin attending meets according to schedule.
 
+   Usage:
+
    ```bash
-   USAGE:
-   >attendsession
+   attendsession
    ```
 
 2. joinmeet
 
-   Used to instantly join meet with specified meetcode
+   Used to instantly join meet with specified meetcode.
 
+   Usage:
+   
    ```bash
-   USAGE:
-   >joinmeet MEETCODE
+   joinmeet MEETCODE
    ```
