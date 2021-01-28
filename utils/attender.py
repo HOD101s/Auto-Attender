@@ -18,6 +18,7 @@ class Attender:
         self.block_mic_cam = block_mic_cam
         options = webdriver.ChromeOptions()
         options.add_argument(f'user-data-dir={os.getenv("CHROME_PROFILE")}')
+
         if mute_audio:
             options.add_argument("--mute-audio")
 

@@ -34,9 +34,9 @@ class Scheduler:
     # Get current lecture meet code
     def getCurrentMeetCode(self):
         # Get current time params
-        nowTime = datetime.datetime.now()
-        currentDay = nowTime.strftime('%a')
-        currentTime = nowTime.time().replace(microsecond=0, second=0)
+        currentDateTime = datetime.datetime.now()
+        currentDay = currentDateTime.strftime('%a')
+        currentTime = currentDateTime.time().replace(microsecond=0, second=0)
         # get current lecture
         for lecture in self.timetable[currentDay]:
             if lecture.start_time <= currentTime < lecture.end_time:
