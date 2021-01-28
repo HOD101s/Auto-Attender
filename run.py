@@ -13,69 +13,57 @@ parser.add_argument('-build-sc', '--build_schedule',
 args = parser.parse_args()
 
 
-# In seconds
-launch_interval = 20
+class Scheduler:
+    def __init__(self, launch_interval, build_schedule, block_mic_cam, mute_audio):
+        self.launch_interval = launch_interval
+        if build_schedule:
+            timetable_builder.buildtimetable()
+        with open('schedule.pickle', 'rb') as f:
+            self.timetable = pickle.load(f)
+        self.lastLectureEndTime = self.getLastLectureEndTime()
+        self.attend = Attender(block_mic_cam=False, mute_audio=False)
 
-# build timetable into timetable.pickle
-if args.build_schedule:
-    # print('Building Timetable')
-    timetable_builder.buildtimetable()
-    # print('Timetable Built')
+    # get end time for last lecture ie. end of lectures for that day
+    def getLastLectureEndTime(self):
+        currentDay = datetime.datetime.now().strftime('%a')
+        endOfLectures = datetime.datetime(1970, 1, 1, 0, 0).time()
+        for lecture in self.timetable[currentDay]:
+            endOfLectures = max(lecture.end_time, endOfLectures)
+        return endOfLectures
 
-# print("Fetching Timetable")
-with open('schedule.pickle', 'rb') as f:
-    timetable = pickle.load(f)
+    # Get current lecture meet code
+    def getCurrentMeetCode(self):
+        # Get current time params
+        nowTime = datetime.datetime.now()
+        currentDay = nowTime.strftime('%a')
+        currentTime = nowTime.time().replace(microsecond=0, second=0)
+        # get current lecture
+        for lecture in self.timetable[currentDay]:
+            if lecture.start_time <= currentTime < lecture.end_time:
+                return lecture.meetcode
+        return None
 
-
-# Get current lecture meet code
-def getCurrentMeetCode():
-    # Get current time params
-    nowTime = datetime.datetime.now()
-    currentDay = nowTime.strftime('%a')
-    currentTime = nowTime.time().replace(microsecond=0, second=0)
-    # get current lecture
-    for lecture in timetable[currentDay]:
-        if lecture.start_time <= currentTime < lecture.end_time:
-            return lecture.meetcode
-    return None
-
-
-# get end time for last lecture ie. end of lectures for that day
-def getLastLectureEndTime():
-    currentDay = datetime.datetime.now().strftime('%a')
-    endOfLectures = datetime.datetime(1970, 1, 1, 0, 0).time()
-    for lecture in timetable[currentDay]:
-        endOfLectures = max(lecture.end_time, endOfLectures)
-    return endOfLectures
-
-
-def attendLecture():
-    # You can access "attend" variable in this function
-    threading.Timer(launch_interval, attendLecture).start()
-    # Gets current lecture meetcode
-    currentMeet = getCurrentMeetCode()
-    # attend.currentLecture is None for no ongoing meet : attend.currentLecture != currentMeet if next meetcode is different from current meet
-    if attend.currentLecture == None or attend.currentLecture != currentMeet:
-        # if currentMeet is not None
-        if currentMeet:
-            attend.join_meet(currentMeet)
-        # if college hasnt ended for the day
-        elif datetime.datetime.now().time() < lastLectureEndTime:
-            attend.driver.maximize_window()
-            if attend.driver.current_url != 'https://www.google.com/':
-                attend.driver.get('https://www.google.com/')
-            attend.currentLecture = None
-            attend.driver.minimize_window()
-        # college lectures ended for the day
-        else:
-            attend.driver.quit()
+    def attendLecture(self):
+        # You can access "attend" variable in this function
+        threading.Timer(self.launch_interval, self.attendLecture).start()
+        # Gets current lecture meetcode
+        currentMeet = self.getCurrentMeetCode()
+        # attend.currentLecture is None for no ongoing meet : attend.currentLecture != currentMeet if next meetcode is different from current meet
+        if self.attend.currentLecture == None or self.attend.currentLecture != currentMeet:
+            # if currentMeet is not None
+            if currentMeet:
+                self.attend.driver.maximize_window()
+                self.attend.join_meet(currentMeet)
+            # if college hasnt ended for the day
+            elif datetime.datetime.now().time() < self.lastLectureEndTime:
+                if self.attend.driver.current_url != 'https://www.google.com/':
+                    self.attend.driver.get('https://www.google.com/')
+                self.attend.currentLecture = None
+                self.attend.driver.minimize_window()
+            # college lectures ended for the day
+            else:
+                self.attend.driver.quit()
 
 
-def launch():
-    global attend, lastLectureEndTime
-    lastLectureEndTime = getLastLectureEndTime()
-    attend = Attender(block_mic_cam=False, mute_audio=False)
-    attendLecture()
-
-
-launch()
+scheduler = Scheduler(20, args.build_schedule, False, False)
+scheduler.attendLecture()
