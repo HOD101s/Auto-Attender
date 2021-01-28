@@ -64,7 +64,7 @@ def attendLecture():
             if attend.driver.current_url != 'https://www.google.com/':
                 attend.driver.get('https://www.google.com/')
             attend.currentLecture = None
-            attend.driver.minimize_window()
+            # attend.driver.minimize_window()
         # college lectures ended for the day
         else:
             attend.driver.quit()
