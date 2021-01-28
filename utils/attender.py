@@ -17,12 +17,12 @@ class Attender:
         self.currentLecture = None
         self.block_mic_cam = block_mic_cam
         options = webdriver.ChromeOptions()
-        options.add_argument(f'user-data-dir={os.environ["CHROME_PROFILE"]}')
+        options.add_argument(f'user-data-dir={os.getenv("CHROME_PROFILE")}')
         if mute_audio:
             options.add_argument("--mute-audio")
 
-        if os.environ['CHROME_BINARY']:
-            options.binary_location = os.environ['CHROME_BINARY']
+        if os.getenv('CHROME_BINARY'):
+            options.binary_location = os.getenv('CHROME_BINARY')
 
         if block_mic_cam:
             exptoption = 2
@@ -39,7 +39,7 @@ class Attender:
             }
         )
         self.driver = webdriver.Chrome(
-            executable_path=os.environ['CHROME_WEB_DRIVER'], options=options)
+            executable_path=os.getenv('CHROME_WEB_DRIVER'), options=options)
 
     def join_meet(self, meetcode, camera_off=True, mic_off=True):
         self.driver.get("https://meet.google.com")
