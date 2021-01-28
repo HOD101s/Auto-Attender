@@ -5,7 +5,7 @@ from utils.lecture import Lecture
 
 
 def buildschedule():
-    ttdata = pd.read_csv('schedule.csv').set_index('Time')
+    ttdata = pd.read_csv('./schedule.csv').set_index('Time')
     ttdict = ttdata.to_dict()
     schedule = {}
 
@@ -25,8 +25,9 @@ def buildschedule():
             schedule[day].append(
                 Lecture(start_time=start, end_time=end, subject=subject, meetcode=meetcode))
 
-    with open("schedule.pickle", "wb") as f:
+    with open("./schedule.pickle", "wb") as f:
         pickle.dump(schedule, f)
 
 
-buildschedule()
+if __name__ == "__main__":
+    buildschedule()

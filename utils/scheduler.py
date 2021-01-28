@@ -11,10 +11,11 @@ class Scheduler:
         self.launch_interval = launch_interval
         if build_schedule:
             buildschedule()
-        with open('schedule.pickle', 'rb') as f:
+        with open('./schedule.pickle', 'rb') as f:
             self.schedule = pickle.load(f)
         self.lastLectureEndTime = self.getLastLectureEndTime()
-        self.attend = Attender(block_mic_cam=False, mute_audio=False)
+        self.attend = Attender(
+            block_mic_cam=block_mic_cam, mute_audio=mute_audio)
 
     # get end time for last lecture ie. end of lectures for that day
     def getLastLectureEndTime(self):
