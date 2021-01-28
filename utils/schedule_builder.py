@@ -1,7 +1,7 @@
 import pickle
 import datetime
 import pandas as pd
-from lecture import Lecture
+from utils.lecture import Lecture
 
 
 def buildschedule():
