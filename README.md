@@ -57,7 +57,7 @@ This will run the main script which will keep checking if there is a meeting to 
 ```bash
 optional arguments:
   -h, --help            show this help message and exit
-  -l LAUNCH_INTERVAL, --launch-interval LAUNCH_INTERVAL
+  -l [LAUNCH_INTERVAL], --launch-interval [LAUNCH_INTERVAL]
                         Interval to keep checking for current available session
   -sc [BUILD_SCHEDULE], --build_schedule [BUILD_SCHEDULE]
                         Re-builds schedule before attending sessions
@@ -94,7 +94,7 @@ Can be run from cmd prompt or Run (Win + R) if set on path.
    Used to instantly join meet with specified meetcode.
 
    Usage:
-   
+
    ```bash
    joinmeet MEETCODE
    ```
