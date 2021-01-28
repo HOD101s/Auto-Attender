@@ -3,7 +3,7 @@ import pickle
 import argparse
 from utils.lecture import Lecture
 from utils.attender import Attender
-import schedule_builder
+from utils.schedule_builder import buildschedule
 import threading
 
 
@@ -17,7 +17,7 @@ class Scheduler:
     def __init__(self, launch_interval=20, build_schedule=True, block_mic_cam=False, mute_audio=False):
         self.launch_interval = launch_interval
         if build_schedule:
-            schedule_builder.buildschedule()
+            buildschedule()
         with open('schedule.pickle', 'rb') as f:
             self.schedule = pickle.load(f)
         self.lastLectureEndTime = self.getLastLectureEndTime()
