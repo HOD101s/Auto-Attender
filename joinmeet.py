@@ -3,7 +3,7 @@ from utils.attender import Attender
 
 
 parser = argparse.ArgumentParser(description='Auto Attender System')
-parser.add_argument('-c', '--meetcode',
+parser.add_argument('-m', '--meetcode',
                     type=str, help='meetcode to join', required=True)
 args = parser.parse_args()
 

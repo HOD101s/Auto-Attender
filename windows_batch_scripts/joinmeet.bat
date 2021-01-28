@@ -4,6 +4,6 @@
 call cd path\\to\\auto-attender
 :: If using python environment uncomment and change next line
 :: call activate python_environment
-call python joinmeet.py -c %1
+call python joinmeet.py -m %1
 :End
 PAUSE
