@@ -42,6 +42,7 @@ class Attender:
             executable_path=os.getenv('CHROME_WEB_DRIVER'), options=options)
 
     def join_meet(self, meetcode, camera_off=True, mic_off=True):
+        self.driver.maximize_window()
         self.driver.get("https://meet.google.com")
         try:
             # Wait till button loads
@@ -92,6 +93,9 @@ class Attender:
             # Click Join Meet
             self.driver.find_element_by_xpath(
                 '//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div[1]/div[1]/span').click()
+
+            # Minimize the window after attending
+            self.driver.minimize_window()
 
             # set flag
             self.currentLecture = meetcode
