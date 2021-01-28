@@ -4,13 +4,13 @@ import pandas as pd
 from utils.lecture import Lecture
 
 
-def buildtimetable():
+def buildschedule():
     ttdata = pd.read_csv('schedule.csv').set_index('Time')
     ttdict = ttdata.to_dict()
-    timetable = {}
+    schedule = {}
 
     for day, sessions in ttdict.items():
-        timetable[day] = []
+        schedule[day] = []
         for time, info in sessions.items():
             if pd.isna(info):
                 continue
@@ -22,11 +22,11 @@ def buildtimetable():
             else:
                 meetcode = info[0]
                 subject = ''
-            timetable[day].append(
+            schedule[day].append(
                 Lecture(start_time=start, end_time=end, subject=subject, meetcode=meetcode))
 
     with open("schedule.pickle", "wb") as f:
-        pickle.dump(timetable, f)
+        pickle.dump(schedule, f)
 
 
-buildtimetable()
+buildschedule()

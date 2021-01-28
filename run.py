@@ -3,7 +3,7 @@ import pickle
 import argparse
 from utils.lecture import Lecture
 from utils.attender import Attender
-import timetable_builder
+import schedule_builder
 import threading
 
 
@@ -14,12 +14,12 @@ args = parser.parse_args()
 
 
 class Scheduler:
-    def __init__(self, launch_interval, build_schedule, block_mic_cam, mute_audio):
+    def __init__(self, launch_interval=20, build_schedule=True, block_mic_cam=False, mute_audio=False):
         self.launch_interval = launch_interval
         if build_schedule:
-            timetable_builder.buildtimetable()
+            schedule_builder.buildschedule()
         with open('schedule.pickle', 'rb') as f:
-            self.timetable = pickle.load(f)
+            self.schedule = pickle.load(f)
         self.lastLectureEndTime = self.getLastLectureEndTime()
         self.attend = Attender(block_mic_cam=False, mute_audio=False)
 
@@ -27,7 +27,7 @@ class Scheduler:
     def getLastLectureEndTime(self):
         currentDay = datetime.datetime.now().strftime('%a')
         endOfLectures = datetime.datetime(1970, 1, 1, 0, 0).time()
-        for lecture in self.timetable[currentDay]:
+        for lecture in self.schedule[currentDay]:
             endOfLectures = max(lecture.end_time, endOfLectures)
         return endOfLectures
 
@@ -38,7 +38,7 @@ class Scheduler:
         currentDay = currentDateTime.strftime('%a')
         currentTime = currentDateTime.time().replace(microsecond=0, second=0)
         # get current lecture
-        for lecture in self.timetable[currentDay]:
+        for lecture in self.schedule[currentDay]:
             if lecture.start_time <= currentTime < lecture.end_time:
                 return lecture.meetcode
         return None
@@ -57,6 +57,7 @@ class Scheduler:
             # if college hasnt ended for the day
             elif datetime.datetime.now().time() < self.lastLectureEndTime:
                 if self.attend.driver.current_url != 'https://www.google.com/':
+                    self.attend.driver.maximize_window()
                     self.attend.driver.get('https://www.google.com/')
                 self.attend.currentLecture = None
                 self.attend.driver.minimize_window()
@@ -65,5 +66,6 @@ class Scheduler:
                 self.attend.driver.quit()
 
 
-scheduler = Scheduler(20, args.build_schedule, False, False)
+scheduler = Scheduler(launch_interval=20, build_schedule=args.build_schedule,
+                      block_mic_cam=False, mute_audio=False)
 scheduler.attendLecture()
