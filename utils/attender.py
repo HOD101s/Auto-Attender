@@ -39,8 +39,11 @@ class Attender:
                 "profile.default_content_setting_values.notifications": exptoption
             }
         )
-        self.driver = webdriver.Chrome(
+        if os.getenv('CHROME_WEB_DRIVER'):
+            self.driver = webdriver.Chrome(
             executable_path=os.getenv('CHROME_WEB_DRIVER'), options=options)
+        else:
+            self.driver = webdriver.Chrome(options=options)
 
     def join_meet(self, meetcode, camera_off=True, mic_off=True):
         self.driver.maximize_window()
