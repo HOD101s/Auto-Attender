@@ -28,6 +28,14 @@ python setupenv.py
   CHROME_PROFILE=Path\to\chrome\user\profile
   CHROME_BINARY=Path\to\chrome.exe
   CHROME_WEB_DRIVER=Path\to\chromedriver
+  # Interval to keep checking for current available session
+  LAUNCH_INTERVAL=60
+  # Re-builds schedule before attending sessions
+  BUILD_SCHEDULE=True
+  # Block Chrome access to Mic and Camera. If set user cannot manually give access to camera or mic
+  BLOCK_CHROME_MIC_CAM=False
+  # Mutes all audio from the Chrome window. If set user cannot manually un-mute
+  MUTE_CHROME_AUDIO=False
   ```
 
 You may find your chrome.exe under : `C:\Program Files (x86)\Google\Chrome\Application\`
@@ -66,6 +74,8 @@ optional arguments:
   -mute [MUTE_CHROME_AUDIO], --mute_chrome_audio [MUTE_CHROME_AUDIO]
                         Mutes all audio from the Chrome window. If set user cannot manually un-mute
 ```
+
+Default values for these arguments are taken from the .env file. So values there would take effect if no args are passed. However, keep in mind arguments passed over cli have precedence over .env default values.
 
 ## Quickly Attending Meetings
 
