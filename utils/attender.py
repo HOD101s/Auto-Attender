@@ -41,7 +41,7 @@ class Attender:
         )
         if os.getenv('CHROME_WEB_DRIVER'):
             self.driver = webdriver.Chrome(
-            executable_path=os.getenv('CHROME_WEB_DRIVER'), options=options)
+                executable_path=os.getenv('CHROME_WEB_DRIVER'), options=options)
         else:
             self.driver = webdriver.Chrome(options=options)
 
@@ -72,7 +72,7 @@ class Attender:
             self.driver.find_element_by_xpath(
                 "//*[contains(text(), 'Continue')]").click()
 
-            if self.block_mic_cam:
+            if self.block_chrome_mic_camera:
                 WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(
                     (By.XPATH, '//*[@id="yDmH0d"]/div[3]/div/div[2]/div[3]/div/span')))
                 # Click Dismis blocked mic and cam
