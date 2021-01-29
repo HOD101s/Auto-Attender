@@ -15,7 +15,7 @@ def str2bool(v):
 
 parser = argparse.ArgumentParser(description='Auto Attender System')
 parser.add_argument('-l', '--launch_interval',
-                    default=20, nargs='?', const=True, type=int, help='Interval to keep checking for current available session')
+                    default=100, nargs='?', const=True, type=int, help='Interval to keep checking for current available session')
 parser.add_argument('-sc', '--build_schedule', type=str2bool,
                     default=True, nargs='?', const=True, help='Re-builds schedule before attending sessions')
 parser.add_argument('-mic', '--block_mic_camera', type=str2bool,
