@@ -7,7 +7,7 @@ from utils.schedule_builder import buildschedule
 
 
 class Scheduler:
-    def __init__(self, launch_interval=20, build_schedule=True, block_mic_cam=False, mute_audio=False):
+    def __init__(self, launch_interval=20, build_schedule=True, block_chrome_mic_camera=False, mute_chrome_audio=False):
         self.launch_interval = launch_interval
         if build_schedule:
             buildschedule()
@@ -15,7 +15,7 @@ class Scheduler:
             self.schedule = pickle.load(f)
         self.lastLectureEndTime = self.getLastLectureEndTime()
         self.attend = Attender(
-            block_mic_cam=block_mic_cam, mute_audio=mute_audio)
+            block_chrome_mic_camera=block_chrome_mic_camera, mute_chrome_audio=mute_chrome_audio)
 
     # get end time for last lecture ie. end of lectures for that day
     def getLastLectureEndTime(self):
