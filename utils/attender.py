@@ -65,12 +65,12 @@ class Attender:
             meetcodefield.click()
             meetcodefield.send_keys(meetcode)
 
-            # # Hit Enter on MeetCode
-            # meetcodefield.send_keys(Keys.ENTER)
+            # Hit Enter on MeetCode
+            meetcodefield.send_keys(Keys.ENTER)
 
-            # Click Continue
-            self.driver.find_element_by_xpath(
-                "//*[contains(text(), 'Continue')]").click()
+            # # Click Continue
+            # self.driver.find_element_by_xpath(
+            #     "//*[contains(text(), 'Continue')]").click()
 
             if self.block_chrome_mic_camera:
                 WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(
