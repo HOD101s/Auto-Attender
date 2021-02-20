@@ -41,7 +41,7 @@ class Attender:
         )
         if os.getenv('CHROME_WEB_DRIVER'):
             self.driver = webdriver.Chrome(
-                executable_path=os.getenv('CHROME_WEB_DRIVER'), options=options)
+                executable_path=os.getenv('CHROME_WEB_DRIVER'), options=options, service_args=["--log-path=logs\\automation.log"])
         else:
             self.driver = webdriver.Chrome(options=options)
 
@@ -49,28 +49,43 @@ class Attender:
         self.driver.maximize_window()
         self.driver.get("https://meet.google.com")
         try:
-            # Wait till button loads
-            WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(
-                (By.XPATH, "//*[contains(text(), 'Use a meeting code')]")))
-            # Click Enter Meeting Code
-            self.driver.find_element_by_xpath(
-                "//*[contains(text(), 'Use a meeting code')]").click()
-
-            # Wait till input appears
-            WebDriverWait(self.driver, 20).until(EC.presence_of_element_located(
-                (By.XPATH, "//*[contains(text(), 'Continue')]")))
             # Enter MeetCode
+
+            # Old Method
+            # # Wait till button loads
+            # WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(
+            #     (By.XPATH, "//*[contains(text(), 'Use a meeting code')]")))
+            # # Click Enter Meeting Code
+            # self.driver.find_element_by_xpath(
+            #     "//*[contains(text(), 'Use a meeting code')]").click()
+
+            # # Wait till input appears
+            # WebDriverWait(self.driver, 20).until(EC.presence_of_element_located(
+            #     (By.XPATH, "//*[contains(text(), 'Continue')]")))
+            # # Enter MeetCode
+            # meetcodefield = self.driver.find_element_by_xpath(
+            #     '//*[@id="yDmH0d"]/div[3]/div/div[2]/span/div/div[2]/div[1]/div[1]/input')
+            # meetcodefield.click()
+            # meetcodefield.send_keys(meetcode)
+
+            # # # Hit Enter on MeetCode
+            # # meetcodefield.send_keys(Keys.ENTER)
+
+            # # Click Continue
+            # self.driver.find_element_by_xpath(
+            #     "//*[contains(text(), 'Continue')]").click()
+
+            # New Method
+            WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(
+                (By.XPATH, "//input[@placeholder='Enter a code or nickname']")))
             meetcodefield = self.driver.find_element_by_xpath(
-                '//*[@id="yDmH0d"]/div[3]/div/div[2]/span/div/div[2]/div[1]/div[1]/input')
+                "//input[@placeholder='Enter a code or nickname']")
             meetcodefield.click()
             meetcodefield.send_keys(meetcode)
-
-            # # Hit Enter on MeetCode
-            # meetcodefield.send_keys(Keys.ENTER)
-
-            # Click Continue
+            WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(
+                (By.XPATH, '//*[@id="yDmH0d"]/c-wiz/div/div[2]/div/div[1]/div[3]/div/div[2]/button/div[2]')))
             self.driver.find_element_by_xpath(
-                "//*[contains(text(), 'Continue')]").click()
+                '//*[@id="yDmH0d"]/c-wiz/div/div[2]/div/div[1]/div[3]/div/div[2]/button/div[2]').click()
 
             if self.block_chrome_mic_camera:
                 WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(

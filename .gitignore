@@ -13,3 +13,6 @@ env/
 
 # IDE Settings
 .vscode/
+
+# Selenium Logs
+logs
