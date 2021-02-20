@@ -113,6 +113,14 @@ class Attender:
             self.driver.find_element_by_xpath(
                 '//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div[1]/div[1]/span').click()
 
+            # Wait until Turn on captions is clickable
+            WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(
+                (By.XPATH, "//*[contains(text(), 'Turn on captions')]")))
+
+            # Click Turn on captions
+            self.driver.find_element_by_xpath(
+                "//*[contains(text(), 'Turn on captions')]").click()
+
             # Minimize the window after attending
             self.driver.minimize_window()
 
