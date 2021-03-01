@@ -16,3 +16,6 @@ env/
 
 # Selenium Logs
 logs
+
+# Logs
+*.log
