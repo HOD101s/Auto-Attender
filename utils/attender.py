@@ -41,7 +41,7 @@ class Attender:
         )
         if os.getenv('CHROME_WEB_DRIVER'):
             self.driver = webdriver.Chrome(
-                executable_path=os.getenv('CHROME_WEB_DRIVER'), options=options, service_args=["--log-path=logs\\automation.log"])
+                executable_path=os.getenv('CHROME_WEB_DRIVER'), options=options, service_args=["--log-path={}".format(os.path.join("logs", "automation.log"))])
         else:
             self.driver = webdriver.Chrome(options=options)
 
