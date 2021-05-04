@@ -82,10 +82,12 @@ class Attender:
                 "//input[@placeholder='Enter a code or nickname']")
             meetcodefield.click()
             meetcodefield.send_keys(meetcode)
-            WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(
-                (By.XPATH, '//*[@id="yDmH0d"]/c-wiz/div/div[2]/div/div[1]/div[3]/div/div[2]/button/div[2]')))
-            self.driver.find_element_by_xpath(
-                '//*[@id="yDmH0d"]/c-wiz/div/div[2]/div/div[1]/div[3]/div/div[2]/button/div[2]').click()
+            meetcodefield.send_keys(Keys.RETURN)
+
+            # WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(
+            #     (By.XPATH, '//*[@id="yDmH0d"]/c-wiz/div/div[2]/div/div[1]/div[3]/div/div[2]/button/div[2]')))
+            # self.driver.find_element_by_xpath(
+            #     '//*[@id="yDmH0d"]/c-wiz/div/div[2]/div/div[1]/div[3]/div/div[2]/button/div[2]').click()
 
             if self.block_chrome_mic_camera:
                 WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(
@@ -96,22 +98,26 @@ class Attender:
             else:
                 # Wait till Join Now Button appears
                 WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(
-                    (By.XPATH, '//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div[1]/div[1]/span')))
+                    (By.XPATH, '//*[contains(text(), "Join now")]')))
                 # Camera OFF
                 if camera_off:
-                    self.driver.find_element_by_xpath(
-                        '//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/div[3]/div[2]/div/div').click()
+                    # self.driver.find_element_by_xpath(
+                    #     '//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/div[3]/div[2]/div/div').click()
+                    self.driver.find_element_by_tag_name(
+                        "body").send_keys(Keys.CONTROL, "e")
                 # Mic OFF
                 if mic_off:
-                    self.driver.find_element_by_xpath(
-                        '//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/div[3]/div[1]/div/div/div').click()
+                    # self.driver.find_element_by_xpath(
+                    #     '//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]/div/div[3]/div[1]/div/div/div').click()
+                    self.driver.find_element_by_tag_name(
+                        "body").send_keys(Keys.CONTROL, "d")
 
             # Wait to Click Join Meet
             WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(
-                (By.XPATH, '//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div[1]/div[1]/span')))
+                (By.XPATH, '//*[contains(text(), "Join now")]')))
             # Click Join Meet
             self.driver.find_element_by_xpath(
-                '//*[@id="yDmH0d"]/c-wiz/div/div/div[8]/div[3]/div/div/div[2]/div/div[1]/div[2]/div/div[2]/div/div[1]/div[1]/span').click()
+                '//*[contains(text(), "Join now")]').click()
 
             # Wait until Turn on captions is clickable
             WebDriverWait(self.driver, 20).until(EC.element_to_be_clickable(
